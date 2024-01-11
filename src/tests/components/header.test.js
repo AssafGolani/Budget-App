@@ -6,9 +6,4 @@ import Header from '../../component/Header';
 test('should render Header correctly', () => {
     const wrapper = shallow(<Header />);
     expect(toJson(wrapper)).toMatchSnapshot();
-
-//   expect(wrapper.find('h1').text()).toBe('Expensify');
-//   const renderer = new ReactShallowRenderer();
-//   renderer.render(<Header />);
-//   expect(renderer.getRenderOutput()).toMatchSnapshot();
 });
