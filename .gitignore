@@ -1,2 +1,9 @@
 **/node_modules
 **/node__modules
+node_modules/
+node__modules/
+public/bundle.js
+public/bundle.js.map
+public/styles.css
+public/styles.css.map
+```
