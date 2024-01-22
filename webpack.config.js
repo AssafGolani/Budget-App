@@ -1,50 +1,55 @@
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = (env) => {
   const isProduction = env === 'production';
-  const CSSExtract = new ExtractTextPlugin('styles.css');
- 
+
   return {
+    mode: isProduction ? 'production' : 'development', // Set mode based on environment
     entry: './src/app.js',
     output: {
-      path: path.join(__dirname, 'public', 'dist'),
-      filename: 'bundle.js'
+      path: path.resolve(__dirname, 'public', 'dist'),
+      filename: 'bundle.js',
+      publicPath: '/dist/',
     },
     module: {
-      rules: [{
-        loader: 'babel-loader',
-        test: /\.js$/,
-        exclude: /node_modules/
-      }, {
-        test: /\.s?css$/,
-        use: CSSExtract.extract({
+      rules: [
+        {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          use: 'babel-loader',
+        },
+        {
+          test: /\.s?css$/,
           use: [
+            isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
             {
-              loader:'css-loader',
-              options:{
-                sourceMap:true
-              }
-            }, 
+              loader: 'css-loader',
+              options: {
+                sourceMap: true,
+              },
+            },
             {
-              loader:'sass-loader',
-              options:{
-                sourceMap:true
-              }
-            }
-          ]
-        })
-      }]
+              loader: 'sass-loader',
+              options: {
+                sourceMap: true,
+              },
+            },
+          ],
+        },
+      ],
     },
     plugins: [
-      CSSExtract
+      new MiniCssExtractPlugin({
+        filename: 'styles.css',
+      }),
     ],
     devtool: isProduction ? 'source-map' : 'inline-source-map',
     devServer: {
-      contentBase: path.join(__dirname, 'public'),
+      static: {
+        directory: path.resolve(__dirname, 'public'),
+      },
       historyApiFallback: true,
-      publicPath:'/dist/'
-    }
+    },
   };
-}
-
+};
