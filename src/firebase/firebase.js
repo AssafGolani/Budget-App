@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { get, getDatabase, onValue, ref, remove, set, update, push, onChildRemoved, onChildChanged, onChildAdded } from 'firebase/database';
+import {  getDatabase  } from 'firebase/database';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -15,35 +15,5 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
-
-const notesRef = ref(db, 'Expenses');
-
-// onremovechild listener
-onChildRemoved(notesRef, (snapshot) => {
-  console.log(snapshot.key, snapshot.val());
-});
-
-// onchildchanged listener
-onChildChanged(notesRef, (snapshot) => {
-  console.log(snapshot.key, snapshot.val());
-});
-
-// onchildadded listener
-onChildAdded(notesRef, (snapshot) => {
-  console.log(snapshot.key, snapshot.val());
-});
-
-// get data once
-// get(notesRef).then((snapshot) => {
-//   console.log(snapshot.val())
-//   const expenses = [];
-//   snapshot.forEach((childSnapshot) => {
-//     expenses.push({
-//       id: childSnapshot.key,
-//       ...childSnapshot.val()
-//     });
-//   });
-//   console.log(expenses);
-// });
 
 export default db;
