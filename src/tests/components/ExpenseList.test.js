@@ -1,14 +1,15 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
+
 import { ExpenseList } from '../../component/ExpenseList';
 import { expenses } from '../fixtures/expenses';
 
 test('should render ExpenseList with expenses', () => {
-    const wrapper = shallow(<ExpenseList expenses={expenses} />);
-    expect(wrapper).toMatchSnapshot();
+  const { container } = render(<ExpenseList expenses={expenses} />);
+  expect(container).toMatchSnapshot();
 });
 
 test('should render ExpenseList with empty message', () => {
-    const wrapper = shallow(<ExpenseList expenses={[]} />);
-    expect(wrapper).toMatchSnapshot();
+  const { container } = render(<ExpenseList expenses={[]} />);
+  expect(container).toMatchSnapshot();
 });

@@ -1,8 +1,8 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import ExpenseDashboardPage from '../../component/ExpanseDashboardPage';
 
 test('should render ExpenseDashboardPage correctly', () => {
-    const wrapper = shallow(<ExpenseDashboardPage />);
-    expect(wrapper).toMatchSnapshot();
+  const { container } = render(<ExpenseDashboardPage />);
+  expect(container).toMatchSnapshot();
 });
